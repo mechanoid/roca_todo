@@ -22,6 +22,7 @@ jQuery(function($){
     var install = function(){
       todoMVC.toggle.install();
       todoMVC.updateRelated.install();
+      $(document).find('[data-autofocus]').focus();
     }
 
     $(document).on('dom:changed', install);
