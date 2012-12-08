@@ -1,0 +1,30 @@
+<header id="header">
+  <h1>todos</h1>
+  <%= render partial: 'form' %>
+</header>
+
+<!-- This section should be hidden by default and shown when there are todos -->
+<section id="main">
+  <input id="toggle-all" type="checkbox">
+  <label for="toggle-all">Mark all as complete</label>
+  <%= render partial: 'todos' %>
+</section>
+
+<!-- This footer should hidden by default and shown when there are todos -->
+<footer id="footer">
+  <!-- This should be `0 items left` by default -->
+  <span id="todo-count"><strong>1</strong> item left</span>
+  <!-- Remove this if you don't implement routing -->
+  <ul id="filters">
+    <li>
+      <a class="selected" href="#/">All</a>
+    </li>
+    <li>
+      <a href="#/active">Active</a>
+    </li>
+    <li>
+      <a href="#/completed">Completed</a>
+    </li>
+  </ul>
+  <button id="clear-completed">Clear completed (1)</button>
+</footer>

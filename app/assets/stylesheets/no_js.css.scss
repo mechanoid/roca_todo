@@ -1,0 +1,8 @@
+.no-js {
+  .toggle ~ input[type=submit] {
+    background: none;
+    border: 1px solid #cecece;
+    border-radius: 2px;
+    padding: 0;
+  }
+}

@@ -23,7 +23,8 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-	background: #eaeaea url('../../../../../../Desktop/addyosmani-todomvc-96a084f/assets/bg.png');
+	/*background: #eaeaea url('../../../../../../Desktop/addyosmani-todomvc-96a084f/assets/bg.png');*/
+  background: white asset-url('bg.png', image);
 	color: #4d4d4d;
 	width: 550px;
 	margin: 0 auto;
@@ -230,7 +231,9 @@ label[for='toggle-all'] {
 	-ms-appearance: none;
 	-o-appearance: none;
 	appearance: none;
+  padding: 0;
 }
+
 
 #todo-list li .toggle:after {
 	font-size: 18px;
@@ -295,7 +298,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .destroy:after {
-	content: '✖';
+	content: '?';
 }
 
 #todo-list li:hover .destroy {

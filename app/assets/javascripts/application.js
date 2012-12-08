@@ -12,4 +12,20 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require namespace
+//= require_tree ./behaviors
+//= require application
+
+
+jQuery(function($){
+  $(document).ready(function(){
+    var install = function(){
+      todoMVC.toggle.install();
+      todoMVC.updateRelated.install();
+    }
+
+    $(document).on('dom:changed', install);
+
+    install();
+  })
+});

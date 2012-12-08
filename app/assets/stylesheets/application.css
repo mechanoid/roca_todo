@@ -9,4 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require base
+ *= require js_only
+ *= require no_js
  */
