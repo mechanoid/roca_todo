@@ -17,11 +17,13 @@
 //= require application
 
 
-jQuery(function($){
-  $(document).ready(function(){
-    var install = function(){
+jQuery(function ($) {
+  $(document).ready(function () {
+    var install = function () {
       todoMVC.toggle.install();
       todoMVC.updateRelated.install();
+      todoMVC.observe.install();
+      todoMVC.conditionalObserve.install();
       $(document).find('[data-autofocus]').focus();
     }
 

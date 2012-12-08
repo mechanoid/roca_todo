@@ -1,16 +1,22 @@
 class TodosController < ApplicationController
   before_filter :initialize_todo, only: [:update, :destroy]
 
+  # *******************************************************
+  # *******************************************************
+  # CRUD OPERATIONS
+  # *******************************************************
+  # *******************************************************
   def index
-    @todos = Todo.where(owner: owner_session).order('updated_at DESC')
-    @todo  = Todo.new
+    query  = Todo.where('description IS NOT NULL')
+    query  = query.where("owner = ?", owner_session)
+    @todos = query.order('updated_at DESC')
+    @todo = Todo.new
   end
 
   def create
     @todo       = Todo.new(params[:todo])
     @todo.owner = owner_session
     @todo.save
-
     respond_for_request
   end
 
@@ -28,7 +34,16 @@ class TodosController < ApplicationController
     end
   end
 
+  # *******************************************************
+  # *******************************************************
+  # CRUD OPERATIONS end
+  # *******************************************************
+  # *******************************************************
+
   private
+  def allowed_filters
+    ['completed', 'active']
+  end
 
   def initialize_todo
     @todo = Todo.find(params[:id])

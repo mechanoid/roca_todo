@@ -3,4 +3,5 @@
 .js {
   // for this app, submits should be handled directly via ajax
   input[type=submit] { display: none; }
+  #footer { display: none; }
 }

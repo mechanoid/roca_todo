@@ -3,7 +3,7 @@ class CreateTodos < ActiveRecord::Migration
     create_table :todos do |t|
       t.string :description
       t.boolean :done
-      t.integer :owner
+      t.string :owner
 
       t.timestamps
     end

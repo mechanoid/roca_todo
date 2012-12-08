@@ -13,4 +13,3 @@ namespace 'todoMVC.toggle', (exports) ->
     $root.find("[data-#{config.toggleDataSelector}]").on 'click', (event) ->
       checkbox = $(this)
       checkbox.parent().submit()
-

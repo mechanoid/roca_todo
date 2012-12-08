@@ -3,7 +3,7 @@ namespace 'todoMVC.updateRelated', (exports) ->
     relatedDataSelector: 'related'
     clearSwitch: 'related-clear'
     updateAction: 'related-action'
-    allowedActions: ['after', 'before', 'insertBefore', 'insertAfter', 'prepend', 'append', 'detach']
+    allowedActions: ['after', 'before', 'insertBefore', 'insertAfter', 'prepend', 'append', 'detach', 'hide', 'show']
 
   handleData = (element, action, data) ->
     if not action

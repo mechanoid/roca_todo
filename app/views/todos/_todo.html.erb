@@ -1,5 +1,6 @@
 <% classes = [] %>
 <% classes << 'completed' if todo.done? %>
+<% classes << 'active' unless todo.done? %>
 <% element_identifier = "todo_#{todo.id}" %>
 <%= content_tag 'li', id: element_identifier, class: classes.join(' ') do %>
   <div class="view">
