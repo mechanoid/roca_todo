@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  before_filter :initialize_todo, only: [:update, :destroy]
 
   def index
     @todos = Todo.where(owner: owner_session).order('updated_at DESC')
@@ -14,13 +15,24 @@ class TodosController < ApplicationController
   end
 
   def update
-    @todo = Todo.find(params[:id])
     @todo.update_attributes(params[:todo])
-
     respond_for_request
   end
 
+  def destroy
+    @todo.destroy
+    unless request.xhr?
+      redirect_to todos_path
+    else
+      head :ok
+    end
+  end
+
   private
+
+  def initialize_todo
+    @todo = Todo.find(params[:id])
+  end
 
   def respond_for_request
     unless request.xhr?

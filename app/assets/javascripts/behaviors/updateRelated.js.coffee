@@ -3,14 +3,15 @@ namespace 'todoMVC.updateRelated', (exports) ->
     relatedDataSelector: 'related'
     clearSwitch: 'related-clear'
     updateAction: 'related-action'
-    allowedActions: ['after', 'before', 'insertBefore', 'insertAfter', 'prepend', 'append']
+    allowedActions: ['after', 'before', 'insertBefore', 'insertAfter', 'prepend', 'append', 'detach']
 
-  insertData = (element, action, data) ->
-    unless action
+  handleData = (element, action, data) ->
+    if not action
         element.replaceWith(data)
-      else
-        console.log data
-        element[action](data) if action in config.allowedActions
+    else if action is 'detach'
+      element.detach()
+    else
+      element[action](data) if action in config.allowedActions
 
   clearForm = (form) ->
     form.find('input').not(':submit').val ''
@@ -27,7 +28,7 @@ namespace 'todoMVC.updateRelated', (exports) ->
       related = $(form.data(config.relatedDataSelector))
       action = form.data(config.updateAction)
 
-      insertData(related, action, data)
+      handleData(related, action, data)
       clearForm(form) if form.data(config.clearSwitch)
 
       $root.trigger('dom:changed')

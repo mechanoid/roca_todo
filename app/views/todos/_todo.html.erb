@@ -3,12 +3,22 @@
 <% element_identifier = "todo_#{todo.id}" %>
 <%= content_tag 'li', id: element_identifier, class: classes.join(' ') do %>
   <div class="view">
-    <%= form_for todo, html: { data: { remote: true, related: "##{element_identifier}" } } do |f| %>
-      <%= f.check_box 'done', checked: (todo.done? ? 'checked' : ''), class: 'toggle', data: { toggle: true } %>
-      <%= f.label :done, todo.description %>
+    <%= form_for todo,
+                 remote: true,
+                 html:   { data: { related: "##{element_identifier}" } } do |f| %>
+
+      <%= f.check_box :done, checked: (todo.done? ? 'checked' : ''), class: 'toggle', data: { toggle: true } %>
       <%= f.submit 'update' %>
+      <%= f.label todo.description %>
+
     <% end %>
-    <button class="destroy"></button>
+
+    <%= form_for todo,
+                 remote: true,
+                 html:   { data: { related: "##{element_identifier}", related_action: 'detach' }, method: :delete } do |f| %>
+      <%= f.submit t('submit_labels.destroy'), class: 'destroy' %>
+    <% end %>
+
   </div>
   <!--<input class="edit" value="Create a TodoMVC template">-->
 <% end %>
