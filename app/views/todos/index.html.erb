@@ -9,10 +9,19 @@
          data-conditional-observe-action="css:display,block"
          data-conditional-observe-conter-action="css:display,none">
 
-  <input id="toggle-all" type="checkbox">
-  <label for="toggle-all">Mark all as complete</label>
+
+  <%= form_for @todo,
+               url:    delete_active_todos_path,
+               remote: true,
+               html:   { data: { related: "#todo-list" } },
+               method: :delete do |f| %>
+    <input id="toggle-all" type="checkbox" data-toggle="true">
+    <label for="toggle-all">Mark all as complete</label>
+    <%= f.submit class: "fallback" %>
+  <% end %>
+
   <%= render partial: 'todos' %>
-  
+
 </section>
 
 <footer id="footer"
@@ -25,7 +34,8 @@
 
   <ul id="filters">
     <li>
-      <%= link_to 'All', todos_path, class: ('selected' unless params[:filter]) %>
+      <%= link_to 'All', todos_path, class: ('selected' unless params[:filter])
+      %>
     </li>
     <li>
       <%= link_to 'Active', active_todos_path, class: ('selected' if params[:filter] == 'active') %>

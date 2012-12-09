@@ -7,10 +7,9 @@ class TodosController < ApplicationController
   # *******************************************************
   # *******************************************************
   def index
-    query  = Todo.where('description IS NOT NULL')
-    query  = query.where("owner = ?", owner_session)
-    @todos = query.order('updated_at DESC')
+    todos
     @todo  = Todo.new
+    render layout: false if request.xhr?
   end
 
   def create
@@ -47,6 +46,16 @@ class TodosController < ApplicationController
     respond_with_head
   end
 
+  def delete_active
+    @active_todos = Todo.where("owner = ?", owner_session).where("done is NULL or done == 'f'")
+    @active_todos.each { |todo| todo.update_attribute :done, true }
+    unless request.xhr?
+      redirect_to todos_path
+    else
+      render partial: 'todos', object: todos
+    end
+  end
+
   private
 
 
@@ -81,4 +90,10 @@ class TodosController < ApplicationController
     @owner_session = session[:session_id]
   end
 
+  def todos
+    return @todos if @todos
+    query  = Todo.where('description IS NOT NULL')
+    query  = query.where("owner = ?", owner_session)
+    @todos = query.order('updated_at DESC')
+  end
 end

@@ -1,17 +1,21 @@
 <% classes = [] %>
 <% classes << 'completed' if todo.done? %>
 <% classes << 'active' unless todo.done? %>
+<% classes << 'editing' %>
 <% element_identifier = "todo_#{todo.id}" %>
 <%= content_tag 'li', id: element_identifier, class: classes.join(' ') do %>
   <div class="view">
     <%= form_for todo,
                  remote: true,
-                 html:   { data: { related: "##{element_identifier}" } } do |f| %>
+                 html:   { class: 'state_change',
+                           data:  { related: "##{element_identifier}" } } do |f| %>
 
       <%= f.check_box :done, checked: (todo.done? ? 'checked' : ''), class: 'toggle', data: { toggle: true } %>
       <%= f.submit 'update', class: 'fallback' %>
-      <%= f.label (todo.description.empty? ? 'empty' : todo.description) %>
+    <% end %>
 
+    <%= form_for todo do |f| %>
+      <%= f.text_field :description %>
     <% end %>
 
     <%= form_for todo,
