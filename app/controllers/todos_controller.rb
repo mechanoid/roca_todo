@@ -51,7 +51,7 @@ class TodosController < ApplicationController
   end
 
   def delete_active
-    @active_todos = Todo.where("owner = ?", owner_session).where("done is NULL or done == 'f'")
+    @active_todos = Todo.where("owner = ?", owner_session).where("done is NULL or done = 'f'")
     @active_todos.each { |todo| todo.update_attribute :done, true }
     unless request.xhr?
       redirect_to todos_path
