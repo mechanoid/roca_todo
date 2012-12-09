@@ -24,6 +24,7 @@ jQuery(function ($) {
       todoMVC.updateRelated.install();
       todoMVC.observe.install();
       todoMVC.conditionalObserve.install();
+      todoMVC.count.install();
       $(document).find('[data-autofocus]').focus();
     }
 

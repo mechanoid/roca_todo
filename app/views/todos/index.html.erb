@@ -17,7 +17,7 @@
         data-conditional-observe-action="css:display,block"
         data-conditional-observe-conter-action="css:display,none">
   <!-- This should be `0 items left` by default -->
-  <span id="todo-count"><strong>1</strong> item left</span>
+  <span id="todo-count" data-count="#todo-list li"><strong>1</strong> item left</span>
   <!-- Remove this if you don't implement routing -->
   <ul id="filters">
     <li>
@@ -31,6 +31,6 @@
     </li>
   </ul>
   <%= form_for @todo, url: delete_completed_todos_path, method: :delete do |f| %>
-    <%= f.submit "Clear completed (#{@todos.size})", id: "clear-completed" %>
+    <%= f.submit "Clear completed (#{@todos.size})", id: "clear-completed", data: { count: '#todo-list li.completed' } %>
   <% end %>
 </footer>
