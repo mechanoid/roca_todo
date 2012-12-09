@@ -20,15 +20,15 @@ namespace 'todoMVC.updateRelated', (exports) ->
   exports.install = (root) ->
     $root = $(root or document)
     # cleaning former event bindings, in case the form has not be rerendered
-    $root.off 'ajax:success', "form[data-#{config.relatedDataSelector}]"
+    $root.off 'ajax:success', "[data-#{config.relatedDataSelector}]"
 
     # re-bind event in case the form has rerendered
-    $root.on 'ajax:success', "form[data-#{config.relatedDataSelector}]", (event, data) ->
-      form = $(event.currentTarget)
-      related = $(form.data(config.relatedDataSelector))
-      action = form.data(config.updateAction)
+    $root.on 'ajax:success', "[data-#{config.relatedDataSelector}]", (event, data) ->
+      elem = $(event.currentTarget)
+      related = $(elem.data(config.relatedDataSelector))
+      action = elem.data(config.updateAction)
 
       handleData(related, action, data)
-      clearForm(form) if form.data(config.clearSwitch)
+      clearForm(elem) if elem.data(config.clearSwitch)
 
       $root.trigger('dom:changed')
