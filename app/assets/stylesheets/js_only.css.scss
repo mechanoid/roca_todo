@@ -2,6 +2,6 @@
 // set automatically if js is enabled in the browser.
 .js {
   // for this app, submits should be handled directly via ajax
-  input[type=submit] { display: none; }
+  input[type=submit].fallback { display: none; }
   #footer { display: none; }
 }

@@ -10,28 +10,30 @@ class TodosController < ApplicationController
     query  = Todo.where('description IS NOT NULL')
     query  = query.where("owner = ?", owner_session)
     @todos = query.order('updated_at DESC')
-    @todo = Todo.new
+    @todo  = Todo.new
   end
 
   def create
     @todo       = Todo.new(params[:todo])
     @todo.owner = owner_session
-    @todo.save
-    respond_for_request
+    if @todo.save
+      respond_with_entity
+    else
+      respond_with_head :bad_request
+    end
   end
 
   def update
-    @todo.update_attributes(params[:todo])
-    respond_for_request
+    if @todo.update_attributes(params[:todo])
+      respond_with_entity
+    else
+      respond_with_head :bad_request
+    end
   end
 
   def destroy
     @todo.destroy
-    unless request.xhr?
-      redirect_to todos_path
-    else
-      head :ok
-    end
+    respond_with_head
   end
 
   # *******************************************************
@@ -40,7 +42,14 @@ class TodosController < ApplicationController
   # *******************************************************
   # *******************************************************
 
+  def delete_completed
+    Todo.where("owner = ?", owner_session).where(done: true).destroy_all
+    respond_with_head
+  end
+
   private
+
+
   def allowed_filters
     ['completed', 'active']
   end
@@ -49,7 +58,15 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
   end
 
-  def respond_for_request
+  def respond_with_head(status = :ok)
+    unless request.xhr?
+      redirect_to todos_path
+    else
+      head status
+    end
+  end
+
+  def respond_with_entity
     unless request.xhr?
       redirect_to todos_path
     else

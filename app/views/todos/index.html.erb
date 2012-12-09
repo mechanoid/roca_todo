@@ -30,5 +30,7 @@
       <%= link_to 'Completed', completed_todos_path, class: ('selected' if params[:filter] == 'completed') %>
     </li>
   </ul>
-  <button id="clear-completed">Clear completed (1)</button>
+  <%= form_for @todo, url: delete_completed_todos_path, method: :delete do |f| %>
+    <%= f.submit "Clear completed (#{@todos.size})", id: "clear-completed" %>
+  <% end %>
 </footer>

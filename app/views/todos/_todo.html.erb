@@ -9,8 +9,8 @@
                  html:   { data: { related: "##{element_identifier}" } } do |f| %>
 
       <%= f.check_box :done, checked: (todo.done? ? 'checked' : ''), class: 'toggle', data: { toggle: true } %>
-      <%= f.submit 'update' %>
-      <%= f.label todo.description %>
+      <%= f.submit 'update', class: 'fallback' %>
+      <%= f.label (todo.description.empty? ? 'empty' : todo.description) %>
 
     <% end %>
 
