@@ -1,7 +1,6 @@
 <% classes = [] %>
 <% classes << 'completed' if todo.done? %>
 <% classes << 'active' unless todo.done? %>
-<% classes << 'editing' %>
 <% element_identifier = "todo_#{todo.id}" %>
 <%= content_tag 'li', id: element_identifier, class: classes.join(' ') do %>
   <div class="view">
@@ -15,7 +14,7 @@
     <% end %>
 
     <%= form_for todo do |f| %>
-      <%= f.text_field :description %>
+      <%= f.label :description %>
     <% end %>
 
     <%= form_for todo,
