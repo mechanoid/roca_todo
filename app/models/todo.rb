@@ -1,7 +1,7 @@
 class Todo < ActiveRecord::Base
   attr_accessible :description, :done, :owner
 
-  validates :description, presence: true, uniqueness: true
+  validates :description, presence: true
 
   def self.completed
     where(done: true)
