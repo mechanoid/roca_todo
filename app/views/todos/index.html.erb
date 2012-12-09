@@ -3,22 +3,26 @@
   <%= render partial: 'form' %>
 </header>
 
-<!-- This section should be hidden by default and shown when there are todos -->
-<section id="main">
+<section id="main"
+         data-conditional-observe="#todo-list li"
+         data-conditional-observe-condition="notEmpty"
+         data-conditional-observe-action="css:display,block"
+         data-conditional-observe-conter-action="css:display,none">
+
   <input id="toggle-all" type="checkbox">
   <label for="toggle-all">Mark all as complete</label>
   <%= render partial: 'todos' %>
+  
 </section>
 
-<!-- This footer should hidden by default and shown when there are todos -->
 <footer id="footer"
         data-conditional-observe="#todo-list li"
         data-conditional-observe-condition="notEmpty"
         data-conditional-observe-action="css:display,block"
         data-conditional-observe-conter-action="css:display,none">
-  <!-- This should be `0 items left` by default -->
+
   <span id="todo-count" data-count="#todo-list li"><strong>1</strong> item left</span>
-  <!-- Remove this if you don't implement routing -->
+
   <ul id="filters">
     <li>
       <%= link_to 'All', todos_path, class: ('selected' unless params[:filter]) %>
@@ -30,6 +34,7 @@
       <%= link_to 'Completed', completed_todos_path, class: ('selected' if params[:filter] == 'completed') %>
     </li>
   </ul>
+
   <%= form_for @todo, url: delete_completed_todos_path, method: :delete do |f| %>
     <%= f.submit "Clear completed (#{@todos.size})", id: "clear-completed", data: { count: '#todo-list li.completed' } %>
   <% end %>
