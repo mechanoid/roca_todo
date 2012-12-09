@@ -45,7 +45,10 @@
     </li>
   </ul>
 
-  <%= form_for @todo, url: delete_completed_todos_path, method: :delete do |f| %>
+  <%= form_for @todo, url: delete_completed_todos_path,
+               method:     :delete,
+               html:       { data: { related: "#todo-list" } },
+               remote:     true do |f| %>
     <%= f.submit "Clear completed (#{@todos.size})", id: "clear-completed", data: { count: '#todo-list li.completed' } %>
   <% end %>
 </footer>

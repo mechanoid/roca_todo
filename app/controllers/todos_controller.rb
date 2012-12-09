@@ -43,7 +43,11 @@ class TodosController < ApplicationController
 
   def delete_completed
     Todo.where("owner = ?", owner_session).where(done: true).destroy_all
-    respond_with_head
+    unless request.xhr?
+      redirect_to todos_path
+    else
+      render partial: 'todos', object: todos
+    end
   end
 
   def delete_active
