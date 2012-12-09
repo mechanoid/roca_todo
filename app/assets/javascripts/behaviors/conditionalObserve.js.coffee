@@ -1,6 +1,6 @@
 namespace 'todoMVC.conditionalObserve', (exports) ->
   config = exports.config =
-    target: "conditional-observe"
+    mainSelector: "conditional-observe"
     action: "conditional-observe-action"
     conterAction: "conditional-observe-conter-action"
     condition: "conditional-observe-condition"
@@ -33,8 +33,8 @@ namespace 'todoMVC.conditionalObserve', (exports) ->
 
   exports.install = (root) ->
     $root = $(root or document)
-    observer = $root.find("[data-#{config.target}]")
-    observed = $root.find(observer.data(config.target))
+    observer = $root.find("[data-#{config.mainSelector}]")
+    observed = $root.find(observer.data(config.mainSelector))
 
     condition = observer.data(config.condition)
     action = observer.data(config.action)
