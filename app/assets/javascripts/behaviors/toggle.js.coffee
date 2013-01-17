@@ -5,11 +5,7 @@ namespace 'todoMVC.toggle', (exports) ->
   exports.install = (root) ->
     $root = $(root or document)
 
-    # clean up former click events on the toggle selector,
-    # to avoid multiple action calls.
-    $root.find("[data-#{config.mainSelector}]").off 'click'
-
     # enable form submit on check
-    $root.find("[data-#{config.mainSelector}]").on 'click', (event) ->
+    $root.on 'click', "[data-#{config.mainSelector}]", (event) ->
       checkbox = $(this)
       checkbox.parent().submit()

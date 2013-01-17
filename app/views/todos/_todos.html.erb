@@ -4,4 +4,4 @@
 } %>
 
 <% observe_todos = filter_classes[params[:filter]] %>
-<ul id="todo-list" data-observe="<%= ".#{observe_todos}" if observe_todos %>" data-observe-action="hide"><%= render @todos %></ul>
+<ul id="todo-list" data-prepend-on="task.created"><%= render @todos %></ul>

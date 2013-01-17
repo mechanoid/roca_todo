@@ -1,13 +1,12 @@
 <% classes = [] %>
 <% classes << 'completed' if todo.done? %>
 <% classes << 'active' unless todo.done? %>
-<% element_identifier = "todo_#{todo.id}" %>
-<%= content_tag 'li', id: element_identifier, class: classes.join(' ') do %>
+<%= content_tag 'li', class: classes.join(' '), data: { replace_on: "task.updated.#{todo.id}" } do %>
   <div class="view">
     <%= form_for todo,
                  remote: true,
                  html:   { class: 'state_change',
-                           data:  { related: "##{element_identifier}" } } do |f| %>
+                           data:  { promote: "task.updated", promotr_id: todo.id } } do |f| %>
 
       <%= f.check_box :done, checked: (todo.done? ? 'checked' : ''), class: 'toggle', data: { toggle: true } %>
       <%= f.submit 'update', class: 'fallback' %>
@@ -19,7 +18,7 @@
 
     <%= form_for todo,
                  remote: true,
-                 html:   { data: { related: "##{element_identifier}", related_action: 'detach' }, method: :delete } do |f| %>
+                 html:   { data: { related: "#{todo.id}", related_action: 'detach' }, method: :delete } do |f| %>
       <%= f.submit t('submit_labels.destroy'), class: 'destroy' %>
     <% end %>
 

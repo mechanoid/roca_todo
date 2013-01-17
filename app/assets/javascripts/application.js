@@ -19,17 +19,21 @@
 
 jQuery(function ($) {
   $(document).ready(function () {
-    var install = function () {
-      todoMVC.toggle.install();
-      todoMVC.updateRelated.install();
+    var installEver = function () {
+      console.log('initialize (after dom:change)');
       todoMVC.observe.install();
       todoMVC.conditionalObserve.install();
-      todoMVC.count.install();
       $(document).find('[data-autofocus]').focus();
     }
 
-    $(document).on('dom:changed', install);
+    var installOnce = function () {
+      todoMVC.toggle.install();
+      eventr.setup();
+    }
 
-    install();
+    $(document).on('dom:changed', installEver);
+
+    installOnce();
+    installEver();
   })
 });
